@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import QrScanner from "qr-scanner";
 import { Box } from "@mui/material";
-import { useRouter } from "next/navigation";
 
-const QrReader = () => {
-  const router = useRouter();
+type QrReaderProps = {
+  onDetected: (pi3: string, chainId: string) => void;
+};
+const QrReader = (props: QrReaderProps) => {
   // QR States
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
@@ -72,14 +73,26 @@ const QrReader = () => {
   useEffect(() => {
     const containPi3 = scannedResult?.indexOf("pi3");
     const containChainId = scannedResult?.indexOf("chain_id");
-    console.log("--->", scannedResult, { containPi3, containChainId });
+
     if (
+      scannedResult &&
       containPi3 &&
       containPi3 >= 0 &&
       containChainId &&
       containChainId >= 0
     ) {
-      console.log("navigate to confirm payment");
+      let str1 = scannedResult;
+      const [pi3, chainId] = str1
+        .replaceAll('"', "")
+        .replaceAll("pi3: ", "")
+        .replaceAll("\nchain_id: ", "")
+        .split(",");
+
+      props.onDetected(
+        `${pi3.slice(0, 16)}...${pi3.slice(pi3.length - 16)}`,
+        chainId
+      );
+      setScannedResult("");
     }
   }, [scannedResult]);
 

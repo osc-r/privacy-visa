@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReactQueryProvider>
-          <Container maxWidth="sm" sx={{ height: "100%" }}>
+          <Container maxWidth="sm" sx={{ height: "100%", p: 0 }}>
             {children}
           </Container>
         </ReactQueryProvider>
