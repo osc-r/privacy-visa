@@ -1,6 +1,7 @@
 import { Button, Grid2 as Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { web3auth } from "../../app/layout";
+import { sdk } from "../../utils/bitkubchain-sdk";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -22,6 +23,10 @@ export default function LoginForm() {
      *  */
   };
 
+  const onClickConnectBitkubNext = async () => {
+    await sdk.loginWithBitkubNext();
+  };
+
   return (
     <>
       <Grid size={12}>
@@ -39,9 +44,9 @@ export default function LoginForm() {
           fullWidth
           variant="outlined"
           color="success"
-          onClick={onClickConnectWeb3}
+          onClick={onClickConnectBitkubNext}
         >
-          Connect with Bitkub
+          Connect with Bitkub NEXT
         </Button>
       </Grid>
       <Grid size={12}>
