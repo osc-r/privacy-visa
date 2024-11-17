@@ -14,13 +14,10 @@ import { useRouter } from "next/navigation";
 const ITEMS = [
   {
     name: "Card1",
-    last4: "1387",
+    last4: "3456",
     pi3: "asdqweqwdqwsqdqwe12e21df23efwe",
-  },
-  {
-    name: "Card2",
-    last4: "2424",
-    pi3: "asdqweqwdqwsqdqwe12e21df23efwe",
+    cardNumber: "1234567890123456",
+    balance: 12343989345,
   },
 ];
 
@@ -43,7 +40,7 @@ export default function ProductsPage() {
                   px: 2,
                   py: 1,
                 }}
-                onClick={() => router.push(`/cards/${item.pi3}`)}
+                onClick={() => router.push(`/cards/${item.cardNumber}`)}
               >
                 <Paper
                   sx={{
@@ -55,8 +52,13 @@ export default function ProductsPage() {
                 >
                   <CreditCardIcon sx={{ fontSize: 48, color: "darkblue" }} />
                   <Stack flex={1} ml={4}>
-                    <Typography>{item.name}</Typography>
-                    <Typography>XXXX XXXX XXXX {item.last4}</Typography>
+                    <Typography variant="subtitle1">{item.name}</Typography>
+                    <Typography variant="subtitle1">
+                      XXXX XXXX XXXX {item.last4}
+                    </Typography>
+                    <Typography variant="caption" mt={1} color="textDisabled">
+                      Balance: {item.balance}
+                    </Typography>
                   </Stack>
                 </Paper>
               </Box>
